@@ -9,12 +9,29 @@ import jwt from "jsonwebtoken";
 //api for adding doctor
 const addDoctor = async (req, res) => {
 
+  console.log('=== ADD DOCTOR ENDPOINT HIT ===')
+
   try {
     const { name, email, password, speciality, degree, experience, about, fees, address } = req.body
     const imageFile = req.file
 
+    // Debug: Log received fields
+    console.log('Received fields:', { name, email, password, speciality, degree, experience, about, fees, address, imageFile })
+
     //checking for all data to add doctor
     if (!name || !email || !password || !speciality || !degree || !experience || !about || !fees || !address || !imageFile) {
+      console.log('Missing fields:', {
+        name: !name,
+        email: !email,
+        password: !password,
+        speciality: !speciality,
+        degree: !degree,
+        experience: !experience,
+        about: !about,
+        fees: !fees,
+        address: !address,
+        imageFile: !imageFile
+      })
       return res.json({ success: false, message: "All fields are required" })
     }
 
@@ -69,7 +86,7 @@ const loginAdmin = async (req, res) => {
 
     if (email === process.env.ADMIN_EMAIL && password === process.env.ADMIN_PASSWORD) {
 
-      const token = jwt.sign(email + password, process.env.JWT_SECRET)
+      const token = jwt.sign({ email, password }, process.env.JWT_SECRET)
 
       res.json({ success: true, token })
 
