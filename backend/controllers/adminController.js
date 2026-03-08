@@ -118,6 +118,18 @@ const cancelAppointment = async (req, res) => {
   }
 }
 
+// API for admin to complete appointment
+const completeAppointment = async (req, res) => {
+  try {
+    const { appointmentId } = req.body
+    await appointmentModel.findByIdAndUpdate(appointmentId, { isCompleted: true })
+    res.json({ success: true, message: "Appointment Completed" })
+  } catch (error) {
+    console.log(error)
+    res.json({ success: false, message: error.message })
+  }
+}
+
 // API to get dashboard data for admin panel
 const adminDashboard = async (req, res) => {
   try {
@@ -141,4 +153,4 @@ const adminDashboard = async (req, res) => {
   }
 }
 
-export { addDoctor, loginAdmin, getAllDoctors, getAllAppointments, cancelAppointment, adminDashboard }
+export { addDoctor, loginAdmin, getAllDoctors, getAllAppointments, cancelAppointment, completeAppointment, adminDashboard }

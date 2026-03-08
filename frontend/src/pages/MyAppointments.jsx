@@ -80,7 +80,12 @@ const MyAppointments = () => {
             <div className='flex flex-col gap-2 justify-end'>
               {!item.cancelled && !item.isCompleted && (
                 <>
-                  <button className='text-sm text-stone-500 text-center sm:min-w-48 py-2 border rounded hover:bg-primary hover:text-white transition-all duration-300'>Pay Online</button>
+                  <button
+                    onClick={() => toast.info('Online payment feature requires Razorpay/Stripe setup.')}
+                    className='text-sm text-stone-500 text-center sm:min-w-48 py-2 border rounded hover:bg-primary hover:text-white transition-all duration-300'
+                  >
+                    Pay Online
+                  </button>
                   <button onClick={() => cancelAppointment(item._id)} className='text-sm text-stone-500 text-center sm:min-w-48 py-2 border rounded hover:bg-red-600 hover:text-white transition-all duration-300'>Cancel appointment</button>
                 </>
               )}

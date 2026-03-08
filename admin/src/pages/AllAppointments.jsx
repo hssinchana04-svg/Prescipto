@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react'
 import { AdminContext } from '../context/AdminContext'
 
 const AllAppointments = () => {
-  const { aToken, appointments, getAllAppointments, cancelAppointment } = useContext(AdminContext)
+  const { aToken, appointments, getAllAppointments, cancelAppointment, completeAppointment } = useContext(AdminContext)
 
   const months = ['', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
@@ -51,7 +51,10 @@ const AllAppointments = () => {
               ? <p className='text-red-400 text-xs font-medium'>Cancelled</p>
               : item.isCompleted
                 ? <p className='text-green-500 text-xs font-medium'>Completed</p>
-                : <button onClick={() => cancelAppointment(item._id)} className='text-red-400 cursor-pointer hover:text-red-600 text-xs border border-red-400 px-2 py-1 rounded hover:bg-red-50' >Cancel</button>
+                : <div className='flex gap-2'>
+                  <button onClick={() => cancelAppointment(item._id)} className='text-red-400 cursor-pointer hover:text-red-600 text-xs border border-red-400 px-2 py-1 rounded hover:bg-red-50'>Cancel</button>
+                  <button onClick={() => completeAppointment(item._id)} className='text-green-500 cursor-pointer hover:text-green-700 text-xs border border-green-500 px-2 py-1 rounded hover:bg-green-50'>Complete</button>
+                </div>
             }
           </div>
         ))}
