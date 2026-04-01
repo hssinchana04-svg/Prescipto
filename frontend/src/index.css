@@ -1,22 +1,76 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 @import "tailwindcss";
 
-* {
-  font-family: 'Outfit', sans-serif;
+@theme {
+  --color-primary: #1E7FBF;
+  --color-primary-hover: #1569A3;
+  --color-accent: #1AAF82;
+  
+  --color-background: #F8F9FA;
+  --color-surface: #FFFFFF;
+  
+  --color-text-dark: #1A1A2E;
+  --color-text-body: #4A4A6A;
+  --color-text-muted: #9CA3AF;
+  
+  --color-border: #E5E7EB;
+  
+  --color-warning: #F0A030;
+  --color-error: #E53935;
+  --color-success: #43A047;
+
+  --font-inter: 'Inter', system-ui, sans-serif;
+
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-pill: 999px;
+
+  --animate-shimmer: shimmer 2s linear infinite;
+
+  @keyframes shimmer {
+    0% { background-position: -1000px 0; }
+    100% { background-position: 1000px 0; }
+  }
 }
 
-@theme {
-  --grid-template-columns-auto: repeat(auto-fill, minmax(200px, 1fr));
-  --color-primary: #5f6FFF;
+body {
+  font-family: var(--font-inter);
+  color: var(--color-text-body);
+  background-color: var(--color-background);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--color-text-dark);
+}
+
+/* Custom Utilities for the Design System */
+.card-shadow {
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+
+.card-shadow-hover {
+  box-shadow: 0 8px 32px rgba(0,0,0,0.10);
+}
+
+.btn-shadow {
+  box-shadow: 0 4px 16px rgba(30,127,191,0.25);
+}
+
+.ring-primary {
+  --tw-ring-color: rgba(30,127,191,0.15);
 }
 
 ::-webkit-scrollbar {
-  display: none;
+  width: 8px;
 }
-
-@media (max-width:740px) {
-  .active p {
-    @apply text-white bg-primary;
-  }
+::-webkit-scrollbar-track {
+  background: var(--color-background);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 4px;
 }

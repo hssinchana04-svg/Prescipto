@@ -15,14 +15,14 @@ const Navbar = () => {
   }
 
   return (
-    <div className='flex items-center justify-between text-sm py-4 mb-5 border-b border-b-grey-400'>
+    <div className='flex items-center justify-between text-sm py-4 mb-5 glass-panel sticky top-0 z-50 transition-all'>
       <img onClick={() => navigate('/')} className='w-44 cursor-pointer' src={assets.logo} alt="" />
       <ul className='hidden md:flex items-start gap-5 font-medium'>
         <NavLink to='/'>
           {({ isActive }) => (
             <div className='flex flex-col items-center gap-1'>
               <p>HOME</p>
-              <div className={`w-3/5 h-0.5 bg-gray-700 ${isActive ? 'block' : 'hidden'}`} />
+              <div className={`h-0.5 bg-primary transition-all duration-300 ${isActive ? 'w-full' : 'w-0'}`} />
             </div>
           )}
         </NavLink>
@@ -30,7 +30,7 @@ const Navbar = () => {
           {({ isActive }) => (
             <div className='flex flex-col items-center gap-1'>
               <p>ALL DOCTORS</p>
-              <div className={`w-3/5 h-0.5 bg-gray-700 ${isActive ? 'block' : 'hidden'}`} />
+              <div className={`h-0.5 bg-primary transition-all duration-300 ${isActive ? 'w-full' : 'w-0'}`} />
             </div>
           )}
         </NavLink>
@@ -38,7 +38,7 @@ const Navbar = () => {
           {({ isActive }) => (
             <div className='flex flex-col items-center gap-1'>
               <p>ABOUT</p>
-              <div className={`w-3/5 h-0.5 bg-gray-700 ${isActive ? 'block' : 'hidden'}`} />
+              <div className={`h-0.5 bg-primary transition-all duration-300 ${isActive ? 'w-full' : 'w-0'}`} />
             </div>
           )}
         </NavLink>
@@ -46,7 +46,7 @@ const Navbar = () => {
           {({ isActive }) => (
             <div className='flex flex-col items-center gap-1'>
               <p>CONTACT</p>
-              <div className={`w-3/5 h-0.5 bg-gray-700 ${isActive ? 'block' : 'hidden'}`} />
+              <div className={`h-0.5 bg-primary transition-all duration-300 ${isActive ? 'w-full' : 'w-0'}`} />
             </div>
           )}
         </NavLink>
@@ -65,7 +65,7 @@ const Navbar = () => {
                 </div>
               </div>
             </div>
-            : <button onClick={() => navigate('/login')} className='bg-blue-500 text-white px-5 py-2 rounded-full font-light hidden md:block cursor-pointer hover:bg-blue-600'>Create account</button>
+            : <button onClick={() => navigate('/login')} className='bg-primary text-white px-5 py-2 rounded-full font-medium hidden md:block cursor-pointer hover:bg-primary-light hover:shadow-lg hover:-translate-y-1 transition-all duration-300'>Create account</button>
         }
         <img onClick={() => setShowMenu(true)} className='w-6 md:hidden' src={assets.menu_icon} alt="" />
         {/*--------------------Mobile Menu----------------*/}

@@ -122,7 +122,7 @@ const Appointment = () => {
         <div>
           <img className='bg-primary w-full sm:max-w-72 rounded-lg' src={docInfo.image} alt="" />
         </div>
-        <div className='flex-1 border border-gray-400 rounded-lg p-8 py-7 bg-white mx-2 sm:mx-0 mt-[-80px] sm:mt-0'>
+        <div className='flex-1 border border-gray-100 shadow-lg rounded-lg p-8 py-7 bg-white mx-2 sm:mx-0 mt-[-80px] sm:mt-0 animate-fade-in-up'>
           {/*-------------DocInfo: name, degree, experience---------------*/}
           <p className='flex items-center gap-2 text-2xl font-medium text-gray-900'>{docInfo.name}
             <img className='w-5' src={assets.verified_icon} alt="" />
@@ -162,7 +162,7 @@ const Appointment = () => {
               {item.time.toLowerCase()}</p>
           ))}
         </div>
-        <button onClick={bookAppointment} className='bg-primary text-white text-sm font-light px-14 py-3 rounded-full my-6'>Book an Appointment</button>
+        <button onClick={bookAppointment} className='bg-primary text-white text-sm font-light px-14 py-3 rounded-full my-6 hover:scale-105 hover:shadow-xl transition-all duration-300'>Book an Appointment</button>
       </div>
 
       {/*-----------listing related doctors----------------- */}

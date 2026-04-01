@@ -1,38 +1,24 @@
-import { Route, Routes } from 'react-router-dom'
-import Home from './pages/Home.jsx'
-import Doctors from './pages/Doctors.jsx'
-import Login from './pages/Login.jsx'
-import About from './pages/About.jsx'
-import Contact from './pages/Contact.jsx'
-import MyProfile from './pages/MyProfile.jsx'
-import MyAppointments from './pages/MyAppointments.jsx'
-import Appointment from './pages/Appointment.jsx'
-import Navbar from './components/Navbar.jsx'
-import Footer from './components/Footer.jsx'
-
-
+import { Route, Routes } from "react-router-dom";
+import { MainLayout } from "./components/layout/MainLayout";
+import Home from "./pages/Home";
+import Doctors from "./pages/Doctors";
+import DoctorProfile from "./pages/DoctorProfile";
+import Booking from "./pages/Booking";
+import Dashboard from "./pages/Dashboard";
 
 const App = () => {
   return (
-    <div className='mx-4 sm:mx-[10%]'>
-      <Navbar />
+    <Routes>
+      <Route element={<MainLayout />}>
+        <Route path="/" element={<Home />} />
+        <Route path="/doctors" element={<Doctors />} />
+        <Route path="/doctor/:id" element={<DoctorProfile />} />
+        <Route path="/book/:id" element={<Booking />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="*" element={<Home />} />
+      </Route>
+    </Routes>
+  );
+};
 
-
-      <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/doctors' element={<Doctors />} />
-        <Route path='/doctors/:speciality' element={<Doctors />} />
-        <Route path='/login' element={<Login />} />
-        <Route path='/about' element={<About />} />
-        <Route path='/contact' element={<Contact />} />
-        <Route path='/my-profile' element={<MyProfile />} />
-        <Route path='/my-appointments' element={<MyAppointments />} />
-        <Route path='/appointment/:docId' element={<Appointment />} />
-      </Routes>
-      <Footer />
-
-    </div>
-  )
-}
-
-export default App
+export default App;
