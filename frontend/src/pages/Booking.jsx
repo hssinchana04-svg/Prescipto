@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useParams, Link } from "react-router-dom";
-import { doctors } from "../assets/assets";
+import { AppContext } from "../context/AppContext";
 import { Input } from "../components/ui/Input";
 import { Button } from "../components/ui/Button";
 import { Card, CardContent } from "../components/ui/Card";
@@ -8,10 +8,15 @@ import { CheckCircle2, ChevronRight, Lock, Calendar, Clock, MapPin } from "lucid
 
 const Booking = () => {
   const { id } = useParams();
-  const doctor = doctors.find(d => d._id === id) || doctors[0];
+  const { doctors } = useContext(AppContext);
+  const doctor = doctors.find(d => d._id === id);
 
   const [step, setStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  if (!doctor) {
+    return <div className="min-h-screen flex items-center justify-center text-gray-500">Loading doctor details...</div>;
+  }
 
   // Form State
   const [formData, setFormData] = useState({
