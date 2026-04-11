@@ -1,12 +1,22 @@
-import React, { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import React, { useState, useEffect, useContext } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "../ui/Button";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ChevronDown } from "lucide-react";
+import { AppContext } from "../../context/AppContext";
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
+  const { token, setToken, userData } = useContext(AppContext);
+
+  const logout = () => {
+    setToken(false);
+    localStorage.removeItem('token');
+    navigate('/');
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -53,10 +63,40 @@ export function Navbar() {
             ))}
           </nav>
 
-          <div className="hidden md:block">
-            <Link to="/doctors">
-              <Button>Book Appointment</Button>
-            </Link>
+          <div className="hidden md:flex items-center gap-4">
+            {token ? (
+              <div className="relative" onMouseLeave={() => setDropdownOpen(false)}>
+                <div
+                  className="flex items-center gap-2 cursor-pointer"
+                  onMouseEnter={() => setDropdownOpen(true)}
+                >
+                  <img
+                    className="w-9 h-9 rounded-full object-cover border-2 border-[#1E7FBF]/20"
+                    src={userData?.image || 'https://ui-avatars.com/api/?name=' + (userData?.name || 'U')}
+                    alt=""
+                  />
+                  <ChevronDown size={16} className={`text-[#4A4A6A] transition-transform ${dropdownOpen ? 'rotate-180' : ''}`} />
+                </div>
+                {dropdownOpen && (
+                  <div className="absolute top-full right-0 mt-2 w-48 bg-white rounded-xl shadow-lg border border-[#E5E7EB] py-2 z-50">
+                    <button onClick={() => { navigate('/my-profile'); setDropdownOpen(false); }} className="w-full text-left px-4 py-2.5 text-sm text-[#4A4A6A] hover:bg-[#F5F7FA] hover:text-[#1E7FBF] transition-colors">
+                      My Profile
+                    </button>
+                    <button onClick={() => { navigate('/my-appointments'); setDropdownOpen(false); }} className="w-full text-left px-4 py-2.5 text-sm text-[#4A4A6A] hover:bg-[#F5F7FA] hover:text-[#1E7FBF] transition-colors">
+                      My Appointments
+                    </button>
+                    <hr className="my-1 border-[#E5E7EB]" />
+                    <button onClick={() => { logout(); setDropdownOpen(false); }} className="w-full text-left px-4 py-2.5 text-sm text-red-500 hover:bg-red-50 transition-colors">
+                      Logout
+                    </button>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <Link to="/login">
+                <Button>Login / Sign Up</Button>
+              </Link>
+            )}
           </div>
 
           {/* Mobile Menu Toggle */}
@@ -95,9 +135,17 @@ export function Navbar() {
                 {link.name}
               </Link>
             ))}
-            <Link to="/doctors" onClick={() => setMobileMenuOpen(false)} className="mt-4">
-              <Button className="w-full">Book Appointment</Button>
-            </Link>
+            {token ? (
+              <>
+                <Link to="/my-profile" onClick={() => setMobileMenuOpen(false)} className="text-[18px] text-[#4A4A6A]">My Profile</Link>
+                <Link to="/my-appointments" onClick={() => setMobileMenuOpen(false)} className="text-[18px] text-[#4A4A6A]">My Appointments</Link>
+                <button onClick={() => { logout(); setMobileMenuOpen(false); }} className="text-[18px] text-red-500 text-left mt-2">Logout</button>
+              </>
+            ) : (
+              <Link to="/login" onClick={() => setMobileMenuOpen(false)} className="mt-4">
+                <Button className="w-full">Login / Sign Up</Button>
+              </Link>
+            )}
           </nav>
         </div>
       )}
